@@ -9,10 +9,14 @@ docker compose up
 
 To run a single service to only execute a single command, use the following command:
 ```bash
-docker compose run --rm <service_name>
+docker compose run --rm <service_name> <command>
+
+# Example: docker compose run --rm backend npm init
 ```
 
 To execute a command in a running container, use the following command:
 ```bash
 docker compose exec <service_name> <command>
+
+# Example: docker compose exec backend npm install
 ```
