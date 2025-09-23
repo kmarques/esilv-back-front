@@ -34,6 +34,16 @@ router.post("/users", (req, res) => {
   }
 });
 
+router.get("/users/:id", (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
+  const user = users.find((u) => u.id === id);
+  if (!user) {
+    res.sendStatus(404);
+  } else {
+    res.json(user);
+  }
+});
+
 // Routes PATCH & DELETE
 
 module.exports = router;
