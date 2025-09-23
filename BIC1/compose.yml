@@ -19,7 +19,7 @@ services:
       - db
     ports:
       - "3000:3000"
-    command: sh -c "npm install && npm run dev:nodemon"
+    command: sh -c "npm install && npm run dev"
 
   frontend:
     image: node:latest

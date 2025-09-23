@@ -1,0 +1,47 @@
+GET http://localhost:3000/?activated=true
+
+###
+POST http://localhost:3000
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "email": "testuser@example.com"
+}
+
+###
+POST http://localhost:3000
+Content-Type: application/x-www-form-urlencoded
+
+username=testuser&email=testuser@example.com
+
+###
+POST http://localhost:3000
+Content-Type: application/xml
+
+<user>
+    <username>testuser</username>
+    <email>testuser@example.com</email>
+</user>
+
+###
+GET http://localhost:3000/users
+
+### => RETURN 422
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "username": "newuser",
+    "email": "newuser@example.com"
+}
+
+### => 
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "login": "newuser",
+    "email": "newuser@example.com",
+    "password": "securepassword"
+}
