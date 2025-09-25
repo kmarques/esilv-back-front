@@ -9,6 +9,8 @@ services:
     ports:
       - "3000:3000"
     command: sh -c "npm install && npm run dev"
+    ## Si --watch ne fonctionne pas sur votre système, utilisez nodemon
+    #command: sh -c "npm install && npm run dev:nodemon"
     depends_on:
       - db
 
