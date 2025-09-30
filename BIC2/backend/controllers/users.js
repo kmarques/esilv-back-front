@@ -4,7 +4,7 @@ module.exports = {
   cget: (req, res, next) => {
     res.json(users);
   },
-  post: (req, res, next) => {
+  create: (req, res, next) => {
     const data = {
       ...req.body,
       id: Date.now(),
@@ -14,6 +14,9 @@ module.exports = {
   },
   get: (req, res, next) => {
     const user = users.find((u) => u.id === req.params.id);
+    if (!user) {
+      return res.sendStatus(404);
+    }
     res.json(user);
   },
 };

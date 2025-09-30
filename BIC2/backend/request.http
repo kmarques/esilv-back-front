@@ -14,3 +14,18 @@ POST http://localhost:3000/
 Content-Type: application/x-www-form-urlencoded
 
 name=Jane&age=25
+
+###
+GET http://localhost:3000/users
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Jane",
+  "age": 25
+}
+
+###
+GET http://localhost:3000/users/1759246605786
