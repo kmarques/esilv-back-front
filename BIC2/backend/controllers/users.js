@@ -10,10 +10,10 @@ module.exports = {
       id: Date.now(),
     };
     users.push(data);
-    res.json(data);
+    res.status(201).json(data);
   },
   get: (req, res, next) => {
-    const user = users.find((u) => u.id === req.params.id);
+    const user = users.find((u) => u.id === parseInt(req.params.id, 10));
     if (!user) {
       return res.sendStatus(404);
     }
