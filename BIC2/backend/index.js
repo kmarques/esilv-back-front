@@ -1,11 +1,10 @@
 const express = require("express");
-const UserRouter = require("./routes/users");
+const { startDB } = require("./lib/db");
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(UserRouter);
 app.get(
   "/",
   // (request, response, next) => {},
@@ -31,6 +30,15 @@ app.post("/", (req, res, next) => {
   res.send("Hello world from Node in POST ! " + JSON.stringify(data));
 });
 
-app.listen(3000, () => {
-  console.log("Server listening on port 3000");
-});
+startDB()
+  .then(() => {
+    app.use(require("./routes/users"));
+
+    app.listen(3000, () => {
+      console.log("Server listening on port 3000");
+    });
+  })
+  .catch((err) => {
+    console.error("Unable to connect to the database:", err);
+    process.exit(1);
+  });

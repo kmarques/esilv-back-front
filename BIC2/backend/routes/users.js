@@ -6,5 +6,7 @@ const router = Router();
 router.get("/users", UserController.cget);
 router.post("/users", UserController.create);
 router.get("/users/:id", UserController.get);
+router.patch("/users/:id", UserController.update);
+router.delete("/users/:id", UserController.delete);
 
 module.exports = router;

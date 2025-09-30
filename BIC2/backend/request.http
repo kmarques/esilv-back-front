@@ -28,4 +28,15 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/users/1759247277464
+GET http://localhost:3000/users/1759252031812
+
+###
+PATCH http://localhost:3000/users/1759252031812
+Content-Type: application/json
+
+{
+  "name": "Jane Doe"
+}
+
+###
+DELETE http://localhost:3000/users/1759252031812
