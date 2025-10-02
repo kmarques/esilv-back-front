@@ -7,7 +7,7 @@ router.get("/users", UserController.cget);
 router.post("/users", UserController.create);
 
 router.get("/users/:id", UserController.get);
-
-// Routes PATCH & DELETE
+router.patch("/users/:id", UserController.patch);
+router.delete("/users/:id", UserController.delete);
 
 module.exports = router;
