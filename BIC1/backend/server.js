@@ -1,5 +1,5 @@
 const express = require("express");
-const userRouter = require("./routes/users");
+const { getConnection } = require("./lib/db");
 
 const app = express();
 
@@ -45,8 +45,12 @@ app.post("/", (request, response, next) => {
   response.send("POST request received! Body: " + JSON.stringify(body));
 });
 
-app.use(userRouter);
+getConnection().then(() => {
+  const userRouter = require("./routes/users");
 
-app.listen(3000, () => {
-  console.log("Server listening on port http://localhost:3000");
+  app.use(userRouter);
+
+  app.listen(3000, () => {
+    console.log("Server listening on port http://localhost:3000");
+  });
 });
