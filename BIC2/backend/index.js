@@ -32,6 +32,7 @@ app.post("/", (req, res, next) => {
 
 startDB()
   .then(() => {
+    app.use(require("./routes/security"));
     app.use(require("./routes/users"));
     app.use(require("./routes/articles"));
 

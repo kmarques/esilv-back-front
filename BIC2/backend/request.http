@@ -23,6 +23,8 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
+  "email": "t@t.com",
+  "password": "password123",
   "name": "Jane",
   "age": 25
 }
@@ -31,11 +33,12 @@ Content-Type: application/json
 GET http://localhost:3000/users/1759252031812
 
 ###
-PATCH http://localhost:3000/users/1759252031812
+PATCH http://localhost:3000/users/10766154-a2e4-4d3d-bfdc-ee4fea2a1882
 Content-Type: application/json
 
 {
-  "name": "Jane Doe"
+  "name": "Jane Doe",
+  "password": "newpassword456"
 }
 
 ###

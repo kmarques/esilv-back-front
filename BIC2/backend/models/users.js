@@ -1,4 +1,5 @@
 const { DataTypes, Model } = require("sequelize");
+const bcrypt = require("bcrypt");
 const { connection } = require("../lib/db");
 
 class User extends Model {}
@@ -40,5 +41,21 @@ User.init(
     underscored: true,
   }
 );
+
+User.addHook("beforeCreate", async (instance) => {
+  instance.password = await bcrypt.hash(
+    instance.password,
+    await bcrypt.genSalt(10)
+  );
+});
+
+User.addHook("beforeUpdate", async (instance, { fields }) => {
+  if (fields.includes("password")) {
+    instance.password = await bcrypt.hash(
+      instance.password,
+      await bcrypt.genSalt(10)
+    );
+  }
+});
 
 module.exports = User;
