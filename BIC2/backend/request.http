@@ -40,3 +40,31 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/users/1759252031812
+
+###
+GET http://localhost:3000/articles
+
+###
+POST http://localhost:3000/articles
+Content-Type: application/json
+
+{
+  "title": "New Article",
+  "content": "This is the content of the new article."
+}
+
+###
+GET http://localhost:3000/articles/8b6c5400-63a0-4d9b-8a00-45234bcf89d7
+
+###
+PATCH http://localhost:3000/articles/976087ee-de03-43bf-b44a-ac5702caa5aa
+Content-Type: application/json
+
+{
+  "status": "PUBLISHED"
+}
+
+###
+DELETE http://localhost:3000/articles/8b6c5400-63a0-4d9b-8a00-45234bcf89d7
+
+###

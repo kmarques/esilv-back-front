@@ -5,6 +5,7 @@ startDB()
     console.log("Migrator connected to the database");
     // Import models to ensure they are registered with Sequelize
     require("./models/users");
+    require("./models/articles");
     // ADD OTHER MODELS HERE
     // ...
 

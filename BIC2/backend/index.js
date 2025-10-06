@@ -33,6 +33,7 @@ app.post("/", (req, res, next) => {
 startDB()
   .then(() => {
     app.use(require("./routes/users"));
+    app.use(require("./routes/articles"));
 
     app.listen(3000, () => {
       console.log("Server listening on port 3000");
