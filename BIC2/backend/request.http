@@ -17,6 +17,7 @@ name=Jane&age=25
 
 ###
 GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTA3NjYxNTQtYTJlNC00ZDNkLWJmZGMtZWU0ZmVhMmExODgyIiwibmFtZSI6IkphbmUgRG9lIiwiaWF0IjoxNzU5NzQxMzA1fQ.k2yKCdjx39hsZGs3eFf32yFjrps_c_BZ2NRPU_xKrM0
 
 ###
 POST http://localhost:3000/users
@@ -35,10 +36,12 @@ GET http://localhost:3000/users/1759252031812
 ###
 PATCH http://localhost:3000/users/10766154-a2e4-4d3d-bfdc-ee4fea2a1882
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTA3NjYxNTQtYTJlNC00ZDNkLWJmZGMtZWU0ZmVhMmExODgyIiwibmFtZSI6IkphbmUgRG9lIiwiaWF0IjoxNzU5NzQxMzA1fQ.k2yKCdjx39hsZGs3eFf32yFjrps_c_BZ2NRPU_xKrM0
 
 {
   "name": "Jane Doe",
-  "password": "newpassword456"
+  "password": "newpassword456",
+  "role": "ADMIN"
 }
 
 ###
@@ -71,3 +74,11 @@ Content-Type: application/json
 DELETE http://localhost:3000/articles/8b6c5400-63a0-4d9b-8a00-45234bcf89d7
 
 ###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "t@t.com",
+  "password": "newpassword456"
+}

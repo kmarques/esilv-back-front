@@ -19,6 +19,13 @@ User.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    role: {
+      type: DataTypes.STRING,
+      defaultValue: "USER",
+      validate: {
+        isIn: [["ADMIN", "ROLE"]],
+      },
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
