@@ -26,6 +26,7 @@ module.exports = {
       const [nbUpdated, [category]] = await Category.update(req.body, {
         where: { id },
         returning: true,
+        individualHooks: true,
       });
       if (nbUpdated === 0) {
         return res.sendStatus(404);

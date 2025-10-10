@@ -18,6 +18,10 @@ Category.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    history: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
   },
   {
     sequelize: connection,
@@ -25,5 +29,15 @@ Category.init(
     underscored: true,
   }
 );
+
+Category.addHook("beforeUpdate", (instance) => {
+  instance.history = instance.history || [];
+  console.log(instance.previous(), instance.dataValues);
+  const { id, title, description, updatedAt } = instance.previous();
+  instance.history = [
+    { id, title, description, updatedAt },
+    ...instance.history,
+  ];
+});
 
 module.exports = Category;
