@@ -49,10 +49,12 @@ getConnection().then(() => {
   const userRouter = require("./routes/users");
   const labelRouter = require("./routes/labels");
   const categoryRouter = require("./routes/categories");
+  const securityRouter = require("./routes/security");
 
   app.use(userRouter);
   app.use(labelRouter);
   app.use(categoryRouter);
+  app.use(securityRouter);
 
   app.listen(3000, () => {
     console.log("Server listening on port http://localhost:3000");

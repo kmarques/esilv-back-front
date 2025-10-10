@@ -41,9 +41,16 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "login": "newuse1",
-    "email": "newuser1@example.com",
+    "login": "newuse3",
+    "email": "newuser3@example.com",
     "password": "securepassword"
+}
+### =>
+PATCH http://localhost:3000/users/1
+Content-Type: application/json
+
+{
+    "login": "really hashed password"
 }
 ###
 GET http://localhost:3000/categories
@@ -106,4 +113,14 @@ Content-Type: application/json
 {
     "title": "newuse1",
     "description": "This is a new category"
+}
+
+
+### 
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email": "newuser3@example.com",
+    "password": "securepassword"
 }

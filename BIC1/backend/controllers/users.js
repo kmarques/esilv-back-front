@@ -26,6 +26,7 @@ module.exports = {
       const [nbUpdated, [user]] = await User.update(req.body, {
         where: { id },
         returning: true,
+        individualHooks: true,
       });
       if (nbUpdated === 0) {
         return res.sendStatus(404);
