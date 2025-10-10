@@ -41,7 +41,61 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "login": "newuser",
-    "email": "newuser@example.com",
+    "login": "newuse1",
+    "email": "newuser1@example.com",
     "password": "securepassword"
+}
+###
+GET http://localhost:3000/categories
+
+### => RETURN 422
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+    "categoriename": "newcategorie",
+    "email": "newcategorie@example.com"
+}
+
+### => 
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+    "title": "newuse1"
+}
+### => 
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+    "title": "newuse1",
+    "description": "This is a new category"
+}
+###
+GET http://localhost:3000/labels
+
+### => RETURN 422
+POST http://localhost:3000/labels
+Content-Type: application/json
+
+{
+    "categoriename": "newcategorie",
+    "email": "newcategorie@example.com"
+}
+
+### => 
+POST http://localhost:3000/labels
+Content-Type: application/json
+
+{
+    "title": "newuse1"
+}
+### => 
+POST http://localhost:3000/labels
+Content-Type: application/json
+
+{
+    "title": "newuse1",
+    "description": "This is a new category"
 }

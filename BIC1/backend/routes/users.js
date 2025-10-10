@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const UserController = require("../controllers/users-memory");
+const UserController = require("../controllers/users");
 const router = Router();
 
 router.get("/users", UserController.cget);
