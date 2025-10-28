@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { getConnection } = require("./lib/db");
 
 const app = express();
@@ -9,6 +10,7 @@ app.use(express.json());
 // Check content-type for POST/PUT/PATCH if application/x-www-form-urlencoded
 // then parse URL-encoded data and populate req.body
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 function logger(req, res, next) {
   console.log("Request received:", req.method, req.url);

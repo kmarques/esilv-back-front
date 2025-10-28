@@ -31,6 +31,14 @@ User.init(
         // is: /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\dA-Za-z]).{8,32}/,
       },
     },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "USER",
+      validate: {
+        isIn: [["ADMIN", "USER"]],
+      },
+    },
   },
   {
     sequelize: connection,

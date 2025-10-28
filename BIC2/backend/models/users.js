@@ -23,7 +23,7 @@ User.init(
       type: DataTypes.STRING,
       defaultValue: "USER",
       validate: {
-        isIn: [["ADMIN", "ROLE"]],
+        isIn: [["ADMIN", "USER"]],
       },
     },
     email: {

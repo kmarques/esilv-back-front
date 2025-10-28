@@ -25,7 +25,7 @@ module.exports = {
         {
           user_id: user.id,
         },
-        "MYStrongSecret"
+        process.env.JWT_SECRET ?? "MYStrongSecret"
       ),
     });
   },

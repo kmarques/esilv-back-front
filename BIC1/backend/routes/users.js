@@ -1,13 +1,30 @@
 const { Router } = require("express");
 const UserController = require("../controllers/users");
+const checkAuth = require("../middlwares/check-auth");
+const checkRole = require("../middlwares/check-role");
 const router = Router();
 
-router.get("/users", UserController.cget);
+router.get("/users", checkAuth, checkRole(["ADMIN"]), UserController.cget);
 
-router.post("/users", UserController.create);
+router.post("/users", checkAuth, checkRole(["ADMIN"]), UserController.create);
 
-router.get("/users/:id", UserController.get);
-router.patch("/users/:id", UserController.patch);
-router.delete("/users/:id", UserController.delete);
+router.get(
+  "/users/:id",
+  checkAuth,
+  checkRole(["ADMIN", "USER"]),
+  UserController.get
+);
+router.patch(
+  "/users/:id",
+  checkAuth,
+  checkRole(["ADMIN", "USER"]),
+  UserController.patch
+);
+router.delete(
+  "/users/:id",
+  checkAuth,
+  checkRole(["ADMIN", "USER"]),
+  UserController.delete
+);
 
 module.exports = router;

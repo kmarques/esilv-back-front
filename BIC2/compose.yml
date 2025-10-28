@@ -5,7 +5,7 @@ services:
     volumes:
       - ./backend:/app
     environment:
-      - DATABASE_URL=postgresql://myuser:mypassword@db:5432/mydatabase
+      - DATABASE_URL=postgresql://myuser:mypassword@db-bic2:5432/mydatabase
       - JWT_SECRET=your_jwt_secret_key
     ports:
       - "3000:3000"
@@ -13,16 +13,16 @@ services:
     ## Si --watch ne fonctionne pas sur votre système, utilisez nodemon
     #command: sh -c "npm install && npm run dev:nodemon"
     depends_on:
-      - db
+      - db-bic2
 
-  db:
-    image: postgres:latest
+  db-bic2:
+    image: postgres:16-alpine
     environment:
       - POSTGRES_USER=myuser
       - POSTGRES_PASSWORD=mypassword
       - POSTGRES_DB=mydatabase
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - bic2-db-data:/var/lib/postgresql/data
 
   frontend:
     image: node:latest
@@ -38,4 +38,4 @@ services:
     command: sh -c "npm install && npm run dev"
 
 volumes:
-  db-data:
+  bic2-db-data:
