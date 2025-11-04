@@ -4,9 +4,11 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import Button from "./components/button";
 import RegisterForm from "./views/registerForm";
+import LoginForm from "./views/loginForm";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [user, setUser] = useState(null);
 
   return (
     <>
@@ -36,10 +38,14 @@ function App() {
         <Button component="input" type="submit">
           Save
         </Button>
-        <p>
-          <RegisterForm />
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        {!user && (
+          <p>
+            <LoginForm setUser={setUser} />
+            <RegisterForm />
+            Edit <code>src/App.jsx</code> and save to test HMR
+          </p>
+        )}
+        {user && <p>Connected as {user.name}</p>}
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more

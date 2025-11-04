@@ -1,21 +1,18 @@
 import { useState } from "react";
 import Button from "../components/button";
 
-export default function RegisterForm() {
-  const [registerSucceeded, setRegisterSucceeded] = useState(false);
-
+export default function LoginForm({ setUser }) {
+  const [loginSucceeded, setLoginSucceeded] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const values = {
-      name: event.target.name.value,
-      age: event.target.age.value,
       email: event.target.email.value,
       password: event.target.password.value,
     };
 
-    console.log("Registering user with values:", values);
+    console.log("Login user with values:", values);
 
-    const response = await fetch("http://localhost:3000/register", {
+    const response = await fetch("http://localhost:3000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,26 +22,25 @@ export default function RegisterForm() {
 
     if (response.ok) {
       const data = await response.json();
-      console.log("Registration successful:", data);
-      setRegisterSucceeded(true);
+      console.log("Login successful:", data);
+      const token = data.token;
+      const [, payloadEncoded] = token.split(".");
+      const payload = JSON.parse(atob(payloadEncoded));
+      localStorage.setItem("token", token);
+      setUser(payload);
+      setLoginSucceeded(true);
       event.target.reset();
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>Name</label>
-      <input type="text" name="name" />
-      <label>Age</label>
-      <input type="number" name="age" />
       <label>Email</label>
       <input type="email" name="email" />
       <label>Password</label>
       <input type="password" name="password" />
-      <Button type="submit">Register</Button>
-      {registerSucceeded && (
-        <p style={{ color: "green" }}>Registration successful !</p>
-      )}
+      <Button type="submit">Login</Button>
+      {loginSucceeded && <p style={{ color: "green" }}>Login successful !</p>}
     </form>
   );
 }
