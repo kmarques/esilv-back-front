@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../../components/Button";
 
-export default function LoginForm(props) {
+export default function LoginForm({ setUser }) {
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   async function handleSubmit(event) {
     event.preventDefault();
@@ -23,7 +23,11 @@ export default function LoginForm(props) {
     } else {
       setInvalidCredentials(false);
       const content = await response.json();
-      alert(JSON.stringify(content));
+      const token = content.token;
+      localStorage.setItem("token", token);
+      const [, payloadEncoded] = token.split(".");
+      const payload = JSON.parse(atob(payloadEncoded));
+      setUser(payload);
     }
   }
 

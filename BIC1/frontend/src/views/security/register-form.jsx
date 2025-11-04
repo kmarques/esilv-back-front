@@ -1,6 +1,8 @@
+import { useState } from "react";
 import Button from "../../components/Button";
 
 export default function RegisterForm(props) {
+  const [registerSucceeded, setRegisterSucceeded] = useState(false);
   async function handleSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
@@ -18,7 +20,10 @@ export default function RegisterForm(props) {
     });
 
     const content = await response.json();
-    alert(JSON.stringify(content));
+    if (response.ok) {
+      setRegisterSucceeded(true);
+      form.reset();
+    }
   }
 
   return (
@@ -30,6 +35,9 @@ export default function RegisterForm(props) {
       <label>Password</label>
       <input name="password" type="password" />
       <Button component="input" type="submit" title="S'enregistrer" />
+      {registerSucceeded && (
+        <strong style={{ color: "green" }}>Register successfully !</strong>
+      )}
     </form>
   );
 }

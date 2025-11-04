@@ -5,9 +5,22 @@ import "./App.css";
 import Button from "./components/Button";
 import RegisterForm from "./views/security/register-form";
 import LoginForm from "./views/security/login-form";
+import CategoryList from "./views/categories";
 
 function App() {
   const [count, setCount] = useState(0);
+  const token = localStorage.getItem("token");
+  let userDecoded = null;
+  if (token) {
+    const [, payloadEncoded] = token.split(".");
+    userDecoded = JSON.parse(atob(payloadEncoded));
+  }
+  const [user, setUser] = useState(userDecoded);
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    setUser(null);
+  }
 
   return (
     <>
@@ -43,10 +56,25 @@ function App() {
         <Button title="Rounded" variant="icon" />
         <Button component="a" title="Go to google" href="https://google.fr" />
         <p>
-          <h2>Register</h2>
-          <RegisterForm />
-          <h2>Login</h2>
-          <LoginForm />
+          {user === null && (
+            <>
+              <h2>Register</h2>
+              <RegisterForm />
+              <h2>Login</h2>
+              <LoginForm setUser={setUser} />
+            </>
+          )}
+          {user && (
+            <>
+              <h2>Connected as {user.user_id}</h2>
+              <Button
+                variant="delete"
+                title="se déconnecter"
+                onClick={handleLogout}
+              />
+              <CategoryList />
+            </>
+          )}
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
