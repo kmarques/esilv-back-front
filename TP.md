@@ -6,9 +6,6 @@ Ce document regroupe une série de sujets de TP progressifs autour de l'applicat
 
 ## Sommaire
 1. [TP 1 : Attaque par dictionnaire / Force Brute automatisée](#tp-1--attaque-par-dictionnaire--force-brute-automatisée)
-2. [TP 2 : Durcissement du serveur et contre-mesures défensives](#tp-2--durcissement-du-serveur-et-contre-mesures-défensives)
-3. [TP 3 : Interface utilisateur & Gestion de session](#tp-3--interface-utilisateur--gestion-de-session)
-4. [TP 4 : Journalisation, métriques et détection d'intrusions](#tp-4--journalisation-métriques-et-détection-dintrusions)
 
 ---
 
