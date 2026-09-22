@@ -1,0 +1,8 @@
+services:
+  backend:
+    image: node:alpine
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    command: ['sleep', '7d']
+    #command: ['sh', '-c', 'node server.js']

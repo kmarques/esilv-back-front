@@ -1,0 +1,15 @@
+services:
+  scripts:
+    image: node:alpine
+    volumes:
+      - ./scripts:/app
+    working_dir: /app
+    command: ["node", "server.js"]
+
+  backend:
+    image: node:alpine
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    command: ["npm", "run", "dev"]
+    
