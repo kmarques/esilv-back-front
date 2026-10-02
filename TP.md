@@ -7,6 +7,7 @@ Ce document regroupe une série de sujets de TP progressifs autour de l'applicat
 ## Sommaire
 1. [TP 1 : Attaque par dictionnaire / Force Brute automatisée](#tp-1--attaque-par-dictionnaire--force-brute-automatisée)
 2. [TP 2 : Scanner de ports & Détection de protocoles (SSH, HTTP, FTP)](#tp-2--scanner-de-ports--détection-de-protocoles-ssh-http-ftp)
+3. [TP 3 : Routage & Paramétrage d'API avec Express.js](#tp-3--routage--paramétrage-dapi-avec-expressjs)
 
 ---
 
@@ -38,7 +39,7 @@ La première étape d'un audit de sécurité ou d'une phase de reconnaissance co
 
 #### 1. Balayage des ports (Port Scanning)
 - L'outil doit accepter en paramètre une cible (adresse IP ou nom d'hôte) et une plage de ports ou une liste de ports cibles (ex: `20-100` ou `21, 22, 80, 443, 3000`).
-- Chaque tentative de connexion TCP (ex: module natif `net` en Node.js, `socket` en Python) doit être bornée par un timeout court (ex: 300 ms à 1 s) pour ne pas bloquer l'exécution lorsqu'un port est filtré ou silencieux.
+- Chaque tentative de connexion TCP (ex: module natif `net` en Node.js) doit être bornée par un timeout court (ex: 300 ms à 1 s) pour ne pas bloquer l'exécution lorsqu'un port est filtré ou silencieux.
 - Gérer distinctement les états des ports : **Ouvert** (connexion acceptée) ou **Fermé / Filtré** (refus de connexion ou timeout).
 
 #### 2. Détection des protocoles de base (*Banner Grabbing* & Sondes)
@@ -61,3 +62,56 @@ PORT       ÉTAT     SERVICE     BANNIÈRE / VERSION DÉTECTÉE
 ### Pistes d'approfondissement (Bonus)
 - **Gestion de la concurrence** : Limiter le nombre de sockets ouvertes simultanément via un pool de workers ou une file d'attente pour éviter l'épuisement des descripteurs de fichiers (`EMFILE`).
 - **Export JSON** : Ajouter une option `--json` pour exporter les résultats sous forme exploitable par d'autres scripts ou pipelines de sécurité.
+
+---
+
+## TP 3 : Routage & Paramétrage d'API avec Express.js
+
+### Contexte
+Vous développez l'API backend d'une plateforme de streaming vidéo (**CinéPulse**). L'objectif est de concevoir un système de routage robuste permettant de consulter, filtrer et gérer le catalogue de films ainsi que les avis des utilisateurs.
+
+### Objectifs pédagogiques
+- Maîtriser l'extraction et la conversion des **Route Parameters** (`req.params`).
+- Exploiter les **Query Parameters** (`req.query`) pour le filtrage, la recherche et la pagination.
+- Gérer les contraintes de format et les codes d'erreur HTTP (`200`, `404`, `422`).
+
+### Données de départ
+Initialisez une application Express avec un tableau de films et un tableau d'avis stockés en mémoire (ex. `id`, `title`, `director`, `year`, `genre`, `rating`, `isAvailable`).
+
+### Spécifications fonctionnelles
+
+#### 1. Paramètres de chemin (`req.params`)
+- **Détail d'un film :** `GET /api/movies/:id`
+  - Extraire et convertir l'identifiant numérique.
+  - Renvoyer le film correspondant (`200`) ou une erreur `404` si introuvable.
+- **Ressources imbriquées :** `GET /api/movies/:movieId/reviews/:reviewId`
+  - Récupérer les deux paramètres de chemin.
+  - Vérifier que le film existe et que l'avis est bien rattaché à ce film.
+
+#### 2. Paramètres de requête (`req.query`)
+Implémenter la route `GET /api/movies` supportant les critères optionnels et cumulables suivants :
+- **Filtrage :** `genre` (insensible à la casse), `minRating` (note minimale), `available` (booléen).
+- **Recherche textuelle :** `search` (recherche partielle sur le titre ou le réalisateur).
+- **Tri :** `sort` (ex: `year` pour croissant, `-year` pour décroissant).
+- **Pagination :** `page` (défaut: 1) et `limit` (défaut: 10).
+  - La réponse doit inclure les métadonnées (`page`, `limit`, `total`, `totalPages`) et le tableau `data`.
+
+#### 3. Validation & Codes d'erreur
+- **Contrôle des identifiants :**
+  - Si un paramètre d'ID n'est pas un entier valide (ex: `/api/movies/abc`), renvoyer immédiatement une erreur `422 Unprocessable Entity`.
+- **Route avec contrainte de format :** `GET /api/movies/release-year/:year`
+  - Vérifier que `:year` est une année valide à 4 chiffres comprise entre 1900 et l'année actuelle (renvoyer `422` sinon).
+
+### Synthèse des endpoints à implémenter
+
+| Méthode | Route | Type de paramètre | Rôle |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/movies` | Query (`genre`, `search`, `minRating`, `sort`, `page`, `limit`) | Catalogue filtré et paginé |
+| `GET` | `/api/movies/:id` | Path (`:id`) | Détail d'un film |
+| `GET` | `/api/movies/release-year/:year` | Path (`:year` sur 4 chiffres) | Films sortis une année précise |
+| `GET` | `/api/movies/:movieId/reviews/:reviewId` | Path (`:movieId`, `:reviewId`) | Avis spécifique d'un film |
+
+### Critères d'évaluation
+- Respect des signatures d'URL et des conventions REST.
+- Typage et validation stricte des paramètres (gestion des `NaN`, types numériques).
+- Utilisation appropriée des codes de statut HTTP (`200`, `404`, `422`).
