@@ -12,4 +12,6 @@ services:
       - ./backend:/app
     working_dir: /app
     command: ["npm", "run", "dev"]
+    ports:
+      - 3000:3000
     
