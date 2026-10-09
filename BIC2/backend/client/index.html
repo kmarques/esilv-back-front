@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer type="module">
+        const response = await fetch('/api/movies');
+        const movies = await response.json();
+
+        const movieList = document.querySelector('#movies');
+
+        movies.forEach(movie => {
+            const li = document.createElement('li');
+            li.textContent = movie.title;
+            movieList.appendChild(li);
+        });
+    </script>
+</head>
+<body>
+    <ul id="movies"></ul>
+</body>
+</html>

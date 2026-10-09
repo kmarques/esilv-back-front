@@ -14,4 +14,19 @@ services:
     command: ["npm", "run", "dev"]
     ports:
       - 3000:3000
+    environment:
+      DATABASE_URL: postgres://user:password@database:5432/db_name
+    depends_on:
+      - database
     
+  database:
+    image: postgres:17-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_DB: db_name
+
+volumes:
+  db-data: {}

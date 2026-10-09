@@ -1,6 +1,6 @@
-import express from "express";
+import { Router } from "express";
 
-const app = express();
+const router = new Router();
 
 // ### Données de départ
 // Initialisez une application Express avec un tableau de films et un tableau d'avis stockés en mémoire (ex. `id`, `title`, `director`, `year`, `genre`, `rating`, `isAvailable`).
@@ -22,7 +22,7 @@ const reviews = [
     { id: 6, movieId: 2, rating: 9, comment: "Excellent film" }
 ]
 
-app.get('/api/movies/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const movie = movies.find(m => m.id === req.params.id);
     if (movie) {
         res.json(movie);
@@ -31,7 +31,7 @@ app.get('/api/movies/:id', (req, res) => {
     }
 });
 
-app.get('/api/movies/:movieId/reviews/:reviewId', (req, res) => {
+router.get('/:movieId/reviews/:reviewId', (req, res) => {
     const movie = movies.find(m => m.id === req.params.movieId);
     if (!movie) {
         return res.sendStatus(404);
@@ -45,7 +45,7 @@ app.get('/api/movies/:movieId/reviews/:reviewId', (req, res) => {
     res.json(review);
 });
 
-app.get('/api/movies', (req, res) => {
+router.get('', (req, res) => {
     let computedMovies = movies.filter(movie => {
         if (req.query.genre) {
             if (movie.genre !== req.query.genre) return false;
@@ -75,4 +75,4 @@ app.get('/api/movies', (req, res) => {
     res.json(computedMovies);
 })
 
-app.listen(3000, () => console.log("Server listening on port 3000"));
+export default router;

@@ -4,6 +4,21 @@ services:
     volumes:
       - ./backend:/app
     working_dir: /app
-    command: ['npm', 'start']
+    command: ['npm', 'run', 'dev']
     ports:
       - 3000:3000
+    environment:
+      DATABASE_URL: postgres://user:password@database/db_name
+
+  database:
+    image: postgres:17-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_DB: db_name
+
+
+volumes:
+  db-data: {}
