@@ -5,21 +5,21 @@ const router = new Router();
 // ### Données de départ
 // Initialisez une application Express avec un tableau de films et un tableau d'avis stockés en mémoire (ex. `id`, `title`, `director`, `year`, `genre`, `rating`, `isAvailable`).
 const movies = [
-    { id: 1, title: "Film 1", director: "Director 1", year: 2020, genre: "Action", rating: 8.5, isAvailable: true },
-    { id: 2, title: "Film 2", director: "Director 2", year: 2021, genre: "Comedy", rating: 7.2, isAvailable: false },
-    { id: 3, title: "Film 3", director: "Director 3", year: 2022, genre: "Drama", rating: 9.0, isAvailable: true },
-    { id: 4, title: "Film 4", director: "Director 4", year: 2022, genre: "Drama", rating: 9.0, isAvailable: true },
-    { id: 5, title: "Film 5", director: "Director 5", year: 2022, genre: "Drama", rating: 9.0, isAvailable: true },
-    { id: 6, title: "Film 6", director: "Director 6", year: 2022, genre: "Drama", rating: 9.0, isAvailable: true },
+    { id: "1", title: "Film 1", director: "Director 1", year: 2020, genre: "Action", rating: 8.5, isAvailable: true },
+    { id: "2", title: "Film 2", director: "Director 2", year: 2021, genre: "Comedy", rating: 7.2, isAvailable: false },
+    { id: "3", title: "Film 3", director: "Director 3", year: 2022, genre: "Drama", rating: 9.0, isAvailable: true },
+    { id: "4", title: "Film 4", director: "Director 4", year: 2022, genre: "Drama", rating: 9.0, isAvailable: true },
+    { id: "5", title: "Film 5", director: "Director 5", year: 2022, genre: "Drama", rating: 9.0, isAvailable: true },
+    { id: "6", title: "Film 6", director: "Director 6", year: 2022, genre: "Drama", rating: 9.0, isAvailable: true },
 ]
 
 const reviews = [
-    { id: 1, movieId: 1, rating: 8, comment: "Bon film" },
-    { id: 2, movieId: 1, rating: 7, comment: "Film moyen" },
-    { id: 3, movieId: 1, rating: 9, comment: "Excellent film" },
-    { id: 4, movieId: 2, rating: 8, comment: "Bon film" },
-    { id: 5, movieId: 2, rating: 7, comment: "Film moyen" },
-    { id: 6, movieId: 2, rating: 9, comment: "Excellent film" }
+    { id: "1", movieId: "1", rating: 8, comment: "Bon film" },
+    { id: "2", movieId: "1", rating: 7, comment: "Film moyen" },
+    { id: "3", movieId: "1", rating: 9, comment: "Excellent film" },
+    { id: "4", movieId: "2", rating: 8, comment: "Bon film" },
+    { id: "5", movieId: "2", rating: 7, comment: "Film moyen" },
+    { id: "6", movieId: "2", rating: 9, comment: "Excellent film" }
 ]
 
 router.get('/:id', (req, res) => {

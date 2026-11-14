@@ -18,6 +18,15 @@ services:
       DATABASE_URL: postgres://user:password@database:5432/db_name
     depends_on:
       - database
+
+  frontend:
+    image: node:alpine
+    volumes:
+      - ./frontend:/app
+    working_dir: /app
+    command: ["npm", "run", "dev"]
+    ports:
+      - 5173:5173
     
   database:
     image: postgres:17-alpine
