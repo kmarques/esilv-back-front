@@ -6,9 +6,31 @@ import { createElement } from 'react'
 import Button from './components/Button'
 import LoginForm from './views/Login'
 import Articles from './views/articles'
+import { useEffect } from 'react'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (token) {
+      const { sub } = JSON.parse(atob(token.split('.')[1]));
+      fetch('http://localhost:3000/api/users/' + sub, {
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          setUser(data);
+          localStorage.setItem('token', token);
+        })
+    } else {
+      setUser(null);
+      localStorage.removeItem('token');
+    }
+  }, [token]);
 
   return (
     <>
@@ -46,8 +68,11 @@ function App() {
       <Button component="a" href="https://google.fr" content={<img src={reactLogo} />} onClick={() => prompt("jhkgjfhdgxcvbn")} />
       <Button component="img" src={viteLogo} onClick={() => prompt("jhkgjfhdgxcvbn")} />
       <Button component="img" src={viteLogo} className="test" onClick={() => prompt("jhkgjfhdgxcvbn")} />
-      <LoginForm />
-      <Articles />
+      {!user && <LoginForm onLogin={setToken} />}
+      {user && <p>
+        User connected: {JSON.stringify(user)}
+        <button onClick={() => setToken()}>Logout</button>
+      </p>}
     </>
   )
 }

@@ -6,7 +6,8 @@ class User extends Model { }
 
 User.init({
     id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.STRING,
+        defaultValue: DataTypes.UUIDV4(),
         primaryKey: true,
     },
     username: {
@@ -26,7 +27,7 @@ User.init({
 });
 
 async function hashPassword(user) {
-    user.password = await bcrypt.hash(user.password);
+    user.password = await bcrypt.hash(user.password, await bcrypt.genSalt());
 }
 
 User.addHook('beforeCreate', hashPassword);

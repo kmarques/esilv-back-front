@@ -8,6 +8,7 @@ services:
     ports:
       - 3000:3000
     environment:
+      JWT_SECRET: cvbhjupiçàu!yèt§r(ertsdxfcvnbjiou)
       DATABASE_URL: postgres://user:password@database/db_name
 
   frontend:

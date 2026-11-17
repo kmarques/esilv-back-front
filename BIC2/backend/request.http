@@ -1,0 +1,24 @@
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+    "username": "test@test.com",
+    "password": "bonjour"
+}
+
+###
+POST http://localhost:3000/api/security/login
+Content-Type: application/json
+
+{
+    "username": "test2@test.com",
+    "password": "bonjour"
+}
+
+###
+GET http://localhost:3000/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QyQHRlc3QuY29tIiwidXNlcklkIjoiYTYwZDIzMGQtMDdiNy00MGY5LTllN2EtZmRiMTc1YjJhNWRmIiwiaWF0IjoxNzk0OTIxOTMwLCJzdWIiOiJhNjBkMjMwZC0wN2I3LTQwZjktOWU3YS1mZGIxNzViMmE1ZGYifQ.K5tIl3YiYVk2l6n8zs4_q1Wk2yfLg58ZgWO15FNrIrw
+
+###
+GET http://localhost:3000/api/users/a60d230d-07b7-40f9-9e7a-fdb175b2a5df
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QyQHRlc3QuY29tIiwidXNlcklkIjoiYTYwZDIzMGQtMDdiNy00MGY5LTllN2EtZmRiMTc1YjJhNWRmIiwiaWF0IjoxNzk0OTIxOTMwLCJzdWIiOiJhNjBkMjMwZC0wN2I3LTQwZjktOWU3YS1mZGIxNzViMmE1ZGYifQ.K5tIl3YiYVk2l6n8zs4_q1Wk2yfLg58ZgWO15FNrIrw

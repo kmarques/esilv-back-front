@@ -1,10 +1,11 @@
 import { Router } from "express";
 import User from "../models/user.js";
+import checkAuth from "../middlewares/check-auth.js";
 
 const router = new Router();
 
 // CGET => collection get => listing
-router.get('', async (req, res) => {
+router.get('', checkAuth, async (req, res) => {
     const { page, itemsPerPage, sort, ...filters } = req.query;
     const otherParams = {};
 
@@ -46,13 +47,19 @@ router.post('', async (req, res) => {
 });
 
 // GET => get item
-router.get('/:id', async (req, res) => {
-    const id = req.params.id;
-    const user = await User.findByPk(id);
+router.get('/:id',
+    checkAuth,
+    (req, res, next) => {
+        if (req.params.id != req.user.id) return res.sendStatus(403);
+        next();
+    },
+    async (req, res) => {
+        const id = req.params.id;
+        const user = await User.findByPk(id);
 
-    if (!user) return res.sendStatus(404);
-    res.json(user);
-});
+        if (!user) return res.sendStatus(404);
+        res.json(user);
+    });
 
 // PATCH => patch item => partial update
 router.patch('/:id', async (req, res) => {

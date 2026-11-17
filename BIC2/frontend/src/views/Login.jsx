@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../components/Button";
 
-export default function LoginForm() {
+export default function LoginForm({ onLogin }) {
     const [errors, setErrors] = useState({
         email: "",
         password: ""
@@ -16,6 +16,19 @@ export default function LoginForm() {
                 email: "must include @"
             }));
         }
+        fetch("http://localhost:3000/api/security/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: email,
+                password
+            })
+        })
+            .then(resp => resp.json())
+            .then(data => onLogin(data.token));
+
     }
 
     return <form onSubmit={handleSubmit}>
