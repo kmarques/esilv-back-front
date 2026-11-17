@@ -14,7 +14,7 @@ router.post('/login', async (req, res) => {
 
     if (!user) return res.sendStatus(401);
 
-    if (!(await bcrypt.compare(password, user.password))) res.sendStatus(401);
+    if (!(await bcrypt.compare(password, user.password))) return res.sendStatus(401);
 
     const token = jwt.sign({
         username: user.username,
