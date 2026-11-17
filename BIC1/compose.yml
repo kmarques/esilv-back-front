@@ -16,6 +16,7 @@ services:
       - 3000:3000
     environment:
       DATABASE_URL: postgres://user:password@database:5432/db_name
+      JWT_SECRET: wxcvbn,kjjioçuà!yèut
     depends_on:
       - database
 

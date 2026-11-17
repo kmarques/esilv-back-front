@@ -1,6 +1,7 @@
 import express from 'express';
 import apiRouter from "./routes/api.js";
 import connection from "./models/db.js";
+import cors from "cors";
 
 const app = express();
 
@@ -10,6 +11,7 @@ console.log(process.env);
 
 app.use(express.json())
 app.use(express.static('.'));
+app.use(cors());
 
 app.get("/", function (request, response) {
     console.log(

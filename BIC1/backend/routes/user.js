@@ -1,10 +1,12 @@
 import { Router } from "express";
 import User from "../models/user.js";
+import checkAuth from "../middlewares/check-auth.js";
 
 const router = new Router();
 
 // CGET => collection GET => list resources
-router.get('', async (req, res) => {
+router.get('', checkAuth, async (req, res) => {
+    console.log(req.user.id);
     // ?sort=year&page=3&itemsPerPage=10&lastname=toto&dob=2026-01-01
     const { page, itemsPerPage, sort, ...filters } = req.query;
     const othersParams = {};
@@ -28,6 +30,7 @@ router.get('', async (req, res) => {
 // POST => collection => create a resource
 router.post('', async (req, res) => {
     try {
+        console.log(req.body);
         const user = await User.create(req.body);
         res.status(201).json(user);
     } catch (error) {
@@ -40,7 +43,10 @@ router.post('', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', checkAuth, (req, res, next) => {
+    if (Number(req.params.id) !== req.user.id) return res.sendStatus(403);
+    next();
+}, async (req, res) => {
     const { id } = req.params;
     const user = await User.findByPk(id);
 

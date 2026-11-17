@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import MyButton from './components/button'
 import ArticlesView from './views/articles'
+import Login from './views/login'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -42,7 +43,8 @@ function App() {
         src={viteLogo}
         toto="4"
       />
-      <ArticlesView />
+
+      <Login />
     </>
   )
 

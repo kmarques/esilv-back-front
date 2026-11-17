@@ -28,7 +28,7 @@ User.init({
 });
 
 async function hashPassword(user) {
-    user.password = bcrypt.hash(user.password);
+    user.password = await bcrypt.hash(user.password, await bcrypt.genSalt());
 }
 
 User.addHook("beforeCreate", hashPassword)
